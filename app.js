@@ -1,9 +1,16 @@
 const http = require('http');
-const route = require('./routes');
+const express = require('express');
 
-//cant change routes file from here
+const app = express();
 
-console.log(route.someText);
-const server  = http.createServer(route.handler);
-server.listen(4000);
+app.use((req,res,next)=>{
+    console.log('In the first middleware');
+    next();
+})
 
+app.use((req,res,next)=>{
+    console.log('In the second middleware');
+    res.send('<h1> Hello from Express</h1>');
+});
+
+app.listen(3000);
